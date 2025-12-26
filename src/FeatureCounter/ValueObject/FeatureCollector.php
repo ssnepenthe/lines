@@ -15,7 +15,6 @@ use PhpParser\Node\Expr\CallLike;
 use PhpParser\Node\Expr\Match_;
 use PhpParser\Node\Expr\NullsafeMethodCall;
 use PhpParser\Node\Expr\NullsafePropertyFetch;
-use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\IntersectionType;
@@ -211,7 +210,7 @@ final class FeatureCollector
         $this->phpFeatures[] = new PhpFeature(
             PhpVersion::PHP_80,
             'Throw expression',
-            fn (Node $node): bool => $node instanceof Throw_,
+            fn (Node $node): bool => $node->hasAttribute('is_throw_expression') && $node->getAttribute('is_throw_expression') === true,
         );
 
         // enums
